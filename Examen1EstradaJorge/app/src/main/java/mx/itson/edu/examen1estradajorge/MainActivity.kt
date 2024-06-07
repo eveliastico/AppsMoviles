@@ -9,7 +9,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         val btn10: Button = findViewById(R.id.btn10)
         val btn20: Button = findViewById(R.id.btn20)
         val btn30: Button = findViewById(R.id.btn30)
@@ -23,8 +22,7 @@ class MainActivity : AppCompatActivity() {
         val txtTotal: TextView = findViewById(R.id.txtTotal)
 
         var porcentaje:Double = 0.0
-
-        //val precioNuevo:Double = precioOriginal.text.toString().toDouble()
+        var precio:Double = 0.0
 
 
         if(precioOriginal.text == ""){
@@ -56,31 +54,76 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnDescuento.setOnClickListener {
-            if(precioOriginal.text.toString() == ""){
+            if(precioOriginal.text.isEmpty()){
                 precioOriginal.setHint("Ingresar Cantidad Porfavor")
             }else{
-                var descuentoAplicado = porcentaje * precioOriginal.text.toString().toDouble()
-                txtDescuento.setText(descuentoAplicado.toString())
+                precio = precioOriginal.text.toString().toDouble()
 
-                var precioNuevo = aplicarDescuento(precioOriginal.text.toString().toDouble(), porcentaje)
-                txtTotal.setText(precioNuevo.toString())
+                var descuento = porcentaje * precio
+                var total = aplicarDescuento(precio, porcentaje)
+
+                txtDescuento.setText(descuento.toString())
+                txtTotal.setText(total.toString())
             }
-
         }
 
         btnPropina.setOnClickListener {
-
-            if(precioOriginal.text.toString() == ""){
+            if(precioOriginal.text.isEmpty()){
                 precioOriginal.setHint("Ingresar Cantidad Porfavor")
-
             }else{
-                var porcentajeAplicado = porcentaje * precioOriginal.text.toString().toDouble()
-                txtDescuento.setText(porcentajeAplicado.toString())
+                if(txtTotal.text.isEmpty()){
+                    precio = precioOriginal.text.toString().toDouble()
+                    var propina = porcentaje * precio
+                    var total = aplicarPropina(precio, porcentaje)
 
-                var precioNuevoAplicado = aplicarPropina(precioOriginal.text.toString().toDouble(), porcentaje)
-                txtTotal.setText(precioNuevoAplicado.toString())
+                    txtDescuento.setText(propina.toString())
+                    txtTotal.setText(total.toString())
+                }else{
+                    var propina = precio * porcentaje
+                    var total = txtTotal.text.toString().toDouble() + propina
+
+                    txtDescuento.setText(propina.toString())
+                    txtTotal.setText(total.toString())
+
+                }
             }
+
         }
+
+//        btnDescuento.setOnClickListener {
+//
+//            if(precioOriginal.text.toString().isEmpty()){
+//                precioOriginal.setHint("Ingresar Cantidad Porfavor")
+//            }else{
+//
+//                if(precio != precioOriginal.text.toString().toDouble()){
+//                    var descuentoAplicado = porcentaje * precio
+//                    txtDescuento.setText(descuentoAplicado.toString())
+//
+//                    var precioTotal = aplicarDescuento(precio, porcentaje)
+//                    txtTotal.setText(precioTotal.toString())
+//                }else{
+//                    precio = precioOriginal.text.toString().toDouble()
+//                }
+//            }
+//        }
+
+//        btnPropina.setOnClickListener {
+//            if(precioOriginal.text.toString().isEmpty()){
+//                precioOriginal.setHint("Ingresar Cantidad Porfavor")
+//            }else{
+//
+//                if(precio != precioOriginal.text.toString().toDouble()){
+//                    var propinaAplicada = porcentaje * precio
+//                    txtDescuento.setText(propinaAplicada.toString())
+//
+//                    var precioTotal = aplicarPropina(precio, porcentaje)
+//                    txtTotal.setText(precioTotal.toString())
+//                }else{
+//                    precio = precioOriginal.text.toString().toDouble()
+//                }
+//            }
+//        }
     }
 
     fun aplicarDescuento(cantidad:Double, descuento:Double):Double{
