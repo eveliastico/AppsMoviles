@@ -64,8 +64,9 @@
         android:textStyle="italic" />
 
     <Button
+        android:id="@+id/btn_signin"
         android:layout_width="219dp"
-        android:layout_height="33dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:background="@drawable/round_button"
