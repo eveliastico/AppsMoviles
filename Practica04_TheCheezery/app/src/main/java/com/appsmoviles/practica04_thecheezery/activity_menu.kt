@@ -1,5 +1,6 @@
 package com.appsmoviles.practica04_thecheezery
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +10,11 @@ class activity_menu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+        var btnCold: Button = findViewById(R.id.btn_cold_drinks) as Button
 
+        btnCold.setOnClickListener {
+            var intent: Intent = Intent(this, ProductosActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
